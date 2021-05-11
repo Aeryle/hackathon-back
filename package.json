@@ -1,0 +1,29 @@
+{
+  "name": "hackathon-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aeryle/hackathon-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aeryle/hackathon-back/issues"
+  },
+  "homepage": "https://github.com/Aeryle/hackathon-back#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.3",
+    "@prisma/client": "^2.22.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "prisma": "^2.22.1"
+  }
+}

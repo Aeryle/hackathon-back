@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Boss {
+  id          String  @id @default(uuid())
+  name        String
+  description String  @db.Text
+  image       String
+  phases      Phase[]
+}
+
+model Phase {
+  id       String  @id @default(uuid())
+  name     String
+  strategy String  @db.Text
+  boss     Boss?   @relation(fields: [bossId], references: [id])
+  bossId   String?
+
+  strategies Strategy[]
+
+}
+
+model Role {
+  id       String     @id @default(uuid())
+  name     String
+  image    String
+  strategy Strategy[]
+}
+
+model Strategy {
+  id          String @id @default(uuid())
+  name        String
+  description String @db.Text
+
+  role    Role?   @relation(fields: [roleId], references: [id])
+  roleId  String?
+  phase   Phase?  @relation(fields: [phaseId], references: [id])
+  phaseId String?
+}
