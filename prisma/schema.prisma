@@ -23,7 +23,6 @@ model Phase {
   bossId   String?
 
   strategies Strategy[]
-
 }
 
 model Role {
@@ -42,4 +41,10 @@ model Strategy {
   roleId  String?
   phase   Phase?  @relation(fields: [phaseId], references: [id])
   phaseId String?
+}
+
+model Video {
+  id     String @id @default(uuid())
+  url    String
+  bossId String?
 }
