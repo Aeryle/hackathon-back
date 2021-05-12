@@ -1,34 +1,51 @@
 const prismaClient = require("./prismaClient")
 
-
-
 exports.boss = async (request) => {
     const { params: { bossId } } = request;
 
     let boss;
+    let phases;
 
     if (bossId) {
         boss = await prismaClient.boss.findUnique({
             where: {
-                id
+                id: bossId
             }
-        })
+        });
+        phases = await prismaClient.phase.findMany({
+            where: {
+                bossId
+            }
+        });
     } else {
-        boss = await prismaClient.boss.findMany()
+        boss = await prismaClient.boss.findMany();
     }
 
-    return boss
+    return bossId ? { ...boss, phases } : boss;
 };
 
 
-exports.phase = (request) => {
-    const { params } = request;
+exports.phase = async (request) => {
+    const { params: { bossId, phaseId } } = request;
 
-    return [+params.raidId, +params.bossId, +params.phaseId];
+    const roles = await prismaClient.role.findMany();
+    console.log({ roles });
+
+    return await prismaClient.strategy.findMany({
+        where: {
+            bossId,
+            phaseId
+        }
+    });
 };
 
-exports.roles = (request) => {
-    const { params } = request;
+exports.strategies = async (request) => {
+    const { params: { bossId, phaseId } } = request;
 
-    return [+params.raidId, +params.bossId, +params.phaseId, 'roles'];
+    return await prismaClient.strategy.findUnique({
+        where: {
+            bossId,
+            phaseId
+        }
+    });
 };
