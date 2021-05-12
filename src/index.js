@@ -1,6 +1,6 @@
 'use strict';
 const Hapi = require('@hapi/hapi');
-const { boss, phase, strategies } = require('./routes');
+const { boss, phases, strategies } = require('./routes');
 
 require('dotenv').config();
 
@@ -30,13 +30,7 @@ const init = async () => {
     server.route({
       method: 'GET',
       path: '/boss/{bossId}/phases/{phaseId?}',
-      handler: phase
-    });
-
-    server.route({
-      method: 'GET',
-      path: '/boss/{bossId}/phases/{phaseId}/strategies',
-      handler: strategies
+      handler: phases
     });
   } catch (err) {
     console.error(err);
